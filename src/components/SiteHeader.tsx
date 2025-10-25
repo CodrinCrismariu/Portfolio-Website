@@ -1,5 +1,10 @@
 import { Link } from 'react-router-dom';
 
+const resumeHref = (() => {
+  const base = import.meta.env.BASE_URL ?? '/';
+  return `${base}${base.endsWith('/') ? '' : '/'}Resume.pdf`;
+})();
+
 const SiteHeader = () => (
   <header className="site-header">
     <div className="site-header__inner">
@@ -12,7 +17,7 @@ const SiteHeader = () => (
         <a href="https://www.linkedin.com/in/codrin-crismariu/" target="_blank" rel="noreferrer">
           LinkedIn
         </a>
-        <a href="/Resume.pdf" target="_blank" rel="noreferrer">
+        <a href={resumeHref} target="_blank" rel="noreferrer">
           Resume
         </a>
       </nav>

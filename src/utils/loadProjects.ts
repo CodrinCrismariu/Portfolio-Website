@@ -34,6 +34,14 @@ const resolveMedia = (media: ProjectMedia, folder: string): MediaResources => {
   const root = folder.endsWith('/') ? folder : `${folder}/`;
   const resolveAsset = (relativePath?: string | null) => {
     if (!relativePath) return undefined;
+    if (/^https?:\/\//.test(relativePath)) {
+      return relativePath;
+    }
+    if (relativePath.startsWith('/')) {
+      const base = import.meta.env.BASE_URL ?? '/';
+      const trimmedBase = base.endsWith('/') ? base.slice(0, -1) : base;
+      return `${trimmedBase}${relativePath}`;
+    }
     const normalized = normalizePath(`${root}${relativePath.replace('./', '')}`);
     const asset = assetModules[`../projects/${normalized.slice(2)}`];
 
