@@ -1,0 +1,27 @@
+{
+  "id": "drone-runner",
+  "title": "OpenDrone Autonomous Platform",
+  "tags": ["Autonomous", "Quadcopter", "Stereo Vision", "SLAM", "Arduino"],
+  "links": [
+    {
+      "label": "GitHub Repository",
+      "url": "https://github.com/CodrinCrismariu/OpenDrone"
+    }
+  ],
+  "media": {
+  "type": "glb",
+  "src": "./model.glb",
+  "poster": "./preview.png",
+    "resources": [],
+    "camera": {
+  "position": [3.186, 1.249, -1.66],
+  "target": [-0.024, -0.238, 0.094],
+  "rotation": [-2.438, 0.949, 2.538],
+      "fov": 45,
+      "near": 0.1,
+      "far": 100
+    }
+  },
+  "order": 7,
+  "date": "2023-06-20"
+}

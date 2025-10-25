@@ -1,0 +1,24 @@
+{
+  "id": "zoro-v2",
+  "title": "Zoro V2 Quadruped",
+  "tags": ["Quadruped", "ISEF", "RGB-D SLAM", "Autonomy", "ROS"],
+  "links": [
+    { "label": "Demo", "url": "https://youtu.be/tsULRBhbrgA?si=orHdtibRRKQvBGfv&t=38" }
+  ],
+  "media": {
+    "type": "glb",
+    "src": "./model.glb",
+    "poster": "./preview.png",
+    "resources": [],
+    "camera": {
+      "position": [5.979, 1.296, -2.489],
+      "target": [0.201, -0.197, 0.317],
+      "rotation": [-2.653, 1.068, 2.705],
+      "fov": 45,
+      "near": 0.1,
+      "far": 100
+    }
+  },
+  "order": 0,
+  "date": "2024-05-11"
+}

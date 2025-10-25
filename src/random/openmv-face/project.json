@@ -1,0 +1,24 @@
+{
+  "id": "openmv-face",
+  "title": "OpenMV Vision Deck",
+  "summary": "Compact computer-vision module for face detection and gesture feedback on hobby robots.",
+  "tags": ["Computer Vision", "Embedded", "UX"],
+  "links": [
+    { "label": "Tutorial", "url": "https://codrin.dev/openmv" }
+  ],
+  "media": {
+    "type": "image",
+    "src": "./thumbnail.svg",
+    "poster": null,
+    "resources": [],
+    "camera": {
+      "position": [0, 1.8, 6],
+      "target": [0, 0, 0],
+      "rotation": [0, 0, 0],
+      "fov": 45,
+      "near": 0.1,
+      "far": 100
+    }
+  },
+  "order": 3
+}

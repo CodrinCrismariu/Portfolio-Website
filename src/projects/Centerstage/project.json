@@ -1,0 +1,31 @@
+{
+  "id": "centerstage",
+  "title": "Centerstage Presenter Bot",
+  "tags": ["FTC", "Sensor-Fusion", "PID", "Motion Profiling"],
+  "links": [
+    {
+      "label": "Robot Demo",
+      "url": "https://www.youtube.com/watch?v=0YZ-mKFQtnE"
+    },
+    {
+      "label": "Engineering Portfolio",
+      "url": "/centerstage-portfolio.pdf"
+    }
+  ],
+  "media": {
+  "type": "glb",
+  "src": "./model.glb",
+  "poster": "./preview.png",
+    "resources": [],
+    "camera": {
+  "position": [2.654, 2.337, 3.54],
+  "target": [-0.179, -0.421, 0.315],
+  "rotation": [-0.708, 0.589, 0.443],
+      "fov": 45,
+      "near": 0.1,
+      "far": 100
+    }
+  },
+  "order": 5,
+  "date": "2024-05-01"
+}

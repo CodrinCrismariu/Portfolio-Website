@@ -1,0 +1,19 @@
+{
+  "id": "openmv-face-detection",
+  "title": "OpenMV Face Detection",
+  "tags": ["Embedded AI", "OpenMV", "BlazeFace"],
+  "links": [
+    {
+      "label": "GitHub Repository",
+      "url": "https://github.com/ceeoinnovations/DrEsLabSpring2025/tree/main/OpenMV_AI_Projects/FaceDetection"
+    }
+  ],
+  "media": {
+    "type": "image",
+    "src": "/openmv-face-detection.png",
+    "poster": null,
+    "resources": []
+  },
+  "order": 1,
+  "date": "2025-04-10"
+}

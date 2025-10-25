@@ -1,0 +1,27 @@
+{
+  "id": "zoro-v1",
+  "title": "Zoro V1 Quadruped",
+  "tags": ["Quadruped", "Autonomous", "Visual SLAM", "Inverse Kinematics"],
+  "links": [
+    {
+      "label": "Demo Video",
+      "url": "https://youtu.be/xywR9M9BMqg?si=GGz-F0lydLpao6r0&t=60"
+    }
+  ],
+  "media": {
+  "type": "glb",
+  "src": "./model.glb",
+  "poster": "./preview.png",
+    "resources": [],
+    "camera": {
+  "position": [2.538, 0.791, -5.112],
+  "target": [-0.091, -0.362, -0.241],
+  "rotation": [-2.909, 0.484, 3.032],
+      "fov": 45,
+      "near": 0.1,
+      "far": 100
+    }
+  },
+  "order": 13,
+  "date": "2023-10-10"
+}

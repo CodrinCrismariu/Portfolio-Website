@@ -1,0 +1,25 @@
+{
+  "id": "opendrone",
+  "title": "OpenDrone Swarm Stack",
+  "summary": "Modular control stack that brings fleet swarming tactics to affordable quadrotors.",
+  "tags": ["Aerial", "Swarm", "Simulation"],
+  "links": [
+    { "label": "Whitepaper", "url": "https://codrin.dev/opendrone" },
+    { "label": "PX4 Fork", "url": "https://github.com/codrin/opendrone" }
+  ],
+  "media": {
+    "type": "image",
+    "src": "./thumbnail.svg",
+    "poster": null,
+    "resources": [],
+    "camera": {
+      "position": [0, 1.8, 6],
+      "target": [0, 0, 0],
+      "rotation": [0, 0, 0],
+      "fov": 45,
+      "near": 0.1,
+      "far": 100
+    }
+  },
+  "order": 2
+}

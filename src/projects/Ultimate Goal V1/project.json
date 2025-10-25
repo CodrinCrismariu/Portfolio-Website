@@ -1,0 +1,22 @@
+{
+  "id": "ultimate-goal-v1",
+  "title": "Ultimate Goal Launcher V1",
+  "tags": ["FTC", "Prototype", "Launcher"],
+  "links": [],
+  "media": {
+  "type": "glb",
+  "src": "./model.glb",
+  "poster": "./preview.png",
+    "resources": [],
+    "camera": {
+  "position": [3.751, 3.676, -4.417],
+  "target": [0.096, -0.409, -0.159],
+  "rotation": [-2.377, 0.555, 2.674],
+      "fov": 45,
+      "near": 0.1,
+      "far": 100
+    }
+  },
+  "order": 11,
+  "date": "2021-04-15"
+}

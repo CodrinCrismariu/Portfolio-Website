@@ -1,0 +1,22 @@
+{
+  "id": "projector",
+  "title": "Hologram Projector",
+  "tags": ["DLP Technology", "Volumetric", "Persistence of Vision"],
+  "links": [],
+  "media": {
+  "type": "glb",
+  "src": "./model.glb",
+  "poster": "./preview.png",
+    "resources": [],
+    "camera": {
+      "position": [3.448, 1.587, -4.281],
+      "target": [0.185, -0.538, 0.278],
+      "rotation": [-2.705, 0.575, 2.893],
+      "fov": 45,
+      "near": 0.1,
+      "far": 100
+    }
+  },
+  "order": 10,
+  "date": "2022-10-23"
+}

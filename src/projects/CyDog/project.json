@@ -1,0 +1,27 @@
+{
+  "id": "cydog",
+  "title": "CyDog Patrol Prototype",
+  "tags": ["Quadruped", "Security", "Perception"],
+  "links": [
+    {
+      "label": "Demo Video",
+      "url": "https://youtu.be/xywR9M9BMqg?si=NP-3vlm2bGf4ISYM&t=21"
+    }
+  ],
+  "media": {
+    "type": "glb",
+    "src": "./model.glb",
+    "poster": "./preview.png",
+    "resources": [],
+    "camera": {
+      "position": [4.849, 0.558, 2.971],
+      "target": [0.028, -0.355, 0.164],
+      "rotation": [-0.315, 1.021, 0.271],
+      "fov": 45,
+      "near": 0.1,
+      "far": 100
+    }
+  },
+  "order": 6,
+  "date": "2022-06-20"
+}

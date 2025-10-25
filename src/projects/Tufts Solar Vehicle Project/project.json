@@ -1,0 +1,24 @@
+{
+  "id": "tufts-solar-vehicle",
+  "title": "Tufts Solar Vehicle Project",
+  "status": "ongoing",
+  "tags": ["Solar", "EV", "FEA"],
+  "links": [
+    {
+      "label": "Team Site",
+      "url": "https://sites.tufts.edu/solarvp/"
+    },
+    {
+      "label": "Instagram",
+      "url": "https://www.instagram.com/tuftssolarvehicle/"
+    }
+  ],
+  "media": {
+    "type": "glb",
+    "src": "./model.glb",
+    "poster": "./preview.png",
+    "resources": []
+  },
+  "order": -5,
+  "date": "2025-08-01"
+}

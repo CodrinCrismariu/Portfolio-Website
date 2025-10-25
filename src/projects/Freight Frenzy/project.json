@@ -1,0 +1,31 @@
+{
+  "id": "freight-frenzy",
+  "title": "Freight Frenzy Carrier",
+  "tags": ["Logistics", "FTC", "Autonomy"],
+  "links": [
+    {
+      "label": "Demo Video",
+      "url": "https://youtu.be/GTY4odPqNrA"
+    },
+    {
+      "label": "Engineering Portfolio",
+      "url": "/freight-frenzy-portfolio.pdf"
+    }
+  ],
+  "media": {
+  "type": "glb",
+  "src": "./model.glb",
+  "poster": "./preview.png",
+    "resources": [],
+    "camera": {
+  "position": [-1.935, 1.969, -3.094],
+  "target": [0.075, -0.245, -0.207],
+  "rotation": [-2.487, -0.505, -2.787],
+      "fov": 45,
+      "near": 0.1,
+      "far": 100
+    }
+  },
+  "order": 8,
+  "date": "2022-05-01"
+}

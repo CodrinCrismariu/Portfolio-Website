@@ -1,0 +1,24 @@
+{
+  "id": "bark",
+  "title": "B.A.R.K. Companion Rover",
+  "summary": "An autonomous tracked rover that shadows first responders with supply packs and telemetry relays.",
+  "tags": ["UGV", "Navigation", "Edge AI"],
+  "links": [
+    { "label": "Project Notes", "url": "https://codrin.dev/bark" }
+  ],
+  "media": {
+    "type": "image",
+    "src": "./thumbnail.svg",
+    "poster": null,
+    "resources": [],
+    "camera": {
+      "position": [0, 1.8, 6],
+      "target": [0, 0, 0],
+      "rotation": [0, 0, 0],
+      "fov": 45,
+      "near": 0.1,
+      "far": 100
+    }
+  },
+  "order": 1
+}

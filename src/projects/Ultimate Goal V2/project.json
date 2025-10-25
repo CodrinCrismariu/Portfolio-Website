@@ -1,0 +1,22 @@
+{
+  "id": "ultimate-goal-v2",
+  "title": "Ultimate Goal Launcher V2",
+  "tags": ["FTC", "Launcher", "Controls"],
+  "links": [],
+  "media": {
+  "type": "glb",
+  "src": "./model.glb",
+  "poster": "./preview.png",
+    "resources": [],
+    "camera": {
+  "position": [3.614, 2.437, -3.546],
+  "target": [-0.093, -0.081, -0.1],
+  "rotation": [-2.51, 0.715, 2.695],
+      "fov": 45,
+      "near": 0.1,
+      "far": 100
+    }
+  },
+  "order": 12,
+  "date": "2021-05-01"
+}

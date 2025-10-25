@@ -1,0 +1,27 @@
+{
+  "id": "bark-guardian",
+  "title": "B.A.R.K",
+  "tags": ["Quadruped", "Inverse Kinematics", "Robot Gaits"],
+  "links": [
+    {
+      "label": "Demo Video",
+      "url": "https://youtu.be/xywR9M9BMqg?si=NP-3vlm2bGf4ISYM&t=21"
+    }
+  ],
+  "media": {
+  "type": "glb",
+  "src": "./model.glb",
+  "poster": "./preview.png",
+    "resources": [],
+    "camera": {
+  "position": [2.413, 1.016, 4.338],
+  "target": [-0.241, -0.345, 0.199],
+  "rotation": [-0.318, 0.547, 0.169],
+      "fov": 45,
+      "near": 0.1,
+      "far": 100
+    }
+  },
+  "order": 4,
+  "date": "2022-07-20"
+}

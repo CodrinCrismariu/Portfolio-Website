@@ -1,0 +1,31 @@
+{
+  "id": "power-play",
+  "title": "Power Play",
+  "tags": ["FTC", "Manipulator", "Control"],
+  "links": [
+    {
+      "label": "Robot Reveal",
+      "url": "https://www.youtube.com/watch?v=oouTEb8M56g"
+    },
+    {
+      "label": "Engineering Portfolio",
+      "url": "/powerplay-portfolio.pdf"
+    }
+  ],
+  "media": {
+  "type": "glb",
+  "src": "./model.glb",
+  "poster": "./preview.png",
+    "resources": [],
+    "camera": {
+  "position": [5.068, 2.365, -5.144],
+  "target": [0.105, -0.369, 0.055],
+  "rotation": [-2.657, 0.702, 2.814],
+      "fov": 45,
+      "near": 0.1,
+      "far": 100
+    }
+  },
+  "order": 9,
+  "date": "2023-04-10"
+}
