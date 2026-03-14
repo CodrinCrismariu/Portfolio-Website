@@ -1,0 +1,27 @@
+{
+    "id": "humanoid-recovery-rl",
+    "title": "Humanoid Recovery",
+    "tags": [
+        "Reinforcement Learning",
+        "Robotics"
+    ],
+    "links": [
+        {
+            "label": "Presentation Video",
+            "url": "https://youtu.be/mtik_cGUqbU"
+        },
+        {
+            "label": "Research Paper",
+            "url": "./Paper.pdf"
+        }
+    ],
+    "awards": [],
+    "media": {
+        "type": "image",
+        "src": "./Cover_GIF.gif",
+        "resources": []
+    },
+    "order": 1,
+    "date": "2025-12-20",
+    "status": "past"
+}

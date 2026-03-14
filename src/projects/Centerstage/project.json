@@ -1,6 +1,6 @@
 {
   "id": "centerstage",
-  "title": "Centerstage Presenter Bot",
+  "title": "Centerstage",
   "tags": ["FTC", "Sensor-Fusion", "PID", "Motion Profiling"],
   "links": [
     {
@@ -11,6 +11,9 @@
       "label": "Engineering Portfolio",
       "url": "/centerstage-portfolio.pdf"
     }
+  ],
+  "awards": [
+    "National Semi-Finalist"
   ],
   "media": {
   "type": "glb",

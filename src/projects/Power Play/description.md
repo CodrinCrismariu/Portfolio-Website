@@ -1,4 +1,4 @@
-Built for the 2022–2023 FTC Power Play season, this robot focused on cycling cones as fast as possible It paired a compact mecanum drivetrain with a virtual four-bar arm, automated assists, and consistent five-cone autonomous routines that helped us reach top 10 OPR(offensive-power-rating) in the world.
+Built for the 2022–2023 [FTC](https://www.firstinspires.org/robotics/ftc) Power Play season, this robot focused on cycling cones as fast as possible It paired a compact mecanum drivetrain with a virtual four-bar arm, automated assists, and consistent five-cone autonomous routines that helped us reach top 10 OPR(offensive-power-rating) in the world.
 
 ## Highlights
 

@@ -1,6 +1,6 @@
 {
   "id": "freight-frenzy",
-  "title": "Freight Frenzy Carrier",
+  "title": "Freight Frenzy",
   "tags": ["Logistics", "FTC", "Autonomy"],
   "links": [
     {
@@ -26,6 +26,9 @@
       "far": 100
     }
   },
+  "awards": [
+    "Think Award 3rd Place"
+  ],
   "order": 8,
   "date": "2022-05-01"
 }

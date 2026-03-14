@@ -1,4 +1,4 @@
-Ultimate Goal V1 was the first prototype robot for the First Tech Challenge Ultimate Goal season that taught me how to CAD, 3D print, lasercut to finally launch foam rings at a target
+Ultimate Goal V1 was the first prototype robot for the [First Tech Challenge](https://www.firstinspires.org/robotics/ftc) Ultimate Goal season that taught me how to CAD, 3D print, lasercut to finally launch foam rings at a target
 
 ## Highlights
 

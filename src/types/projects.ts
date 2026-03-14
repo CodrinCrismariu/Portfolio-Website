@@ -34,8 +34,11 @@ export type Project = {
   status?: 'past' | 'ongoing';
   tags: string[];
   links: ExternalLink[];
+  awards: string[];
   media: ProjectMedia;
   order: number;
 };
 
-export type ProjectManifest = Omit<Project, 'description'>;
+export type ProjectManifest = Omit<Project, 'description' | 'awards'> & {
+  awards?: string[];
+};

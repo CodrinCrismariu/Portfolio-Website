@@ -8,7 +8,28 @@ import { Mesh, MeshStandardMaterial, Color, Box3, Vector3 } from 'three';
 import type { ProjectMedia } from '../../types/projects';
 
 const FALLBACK_COLOR = new Color('#38bdf8');
-const DRACO_DECODER_BASE_URL = '/draco/';
+const ensureTrailingSlash = (value: string) => (value.endsWith('/') ? value : `${value}/`);
+const RAW_BASE_URL = import.meta.env.BASE_URL ?? '/';
+let cachedAbsoluteBaseUrl: string | null = null;
+
+const getAbsoluteBaseUrl = () => {
+  if (cachedAbsoluteBaseUrl) {
+    return cachedAbsoluteBaseUrl;
+  }
+
+  const normalized = ensureTrailingSlash(RAW_BASE_URL);
+
+  if (typeof window !== 'undefined') {
+    const resolved = new URL(normalized, window.location.origin).href;
+    cachedAbsoluteBaseUrl = ensureTrailingSlash(resolved);
+  } else {
+    cachedAbsoluteBaseUrl = ensureTrailingSlash(normalized);
+  }
+
+  return cachedAbsoluteBaseUrl;
+};
+
+const getDracoDecoderBaseUrl = () => `${getAbsoluteBaseUrl()}draco/`;
 const TARGET_MODEL_SIZE = 4;
 const UP_AXIS = 'y';
 
@@ -26,7 +47,7 @@ const getDracoLoader = () => {
   if (!sharedDracoLoader) {
     sharedDracoLoader = new DRACOLoader();
     sharedDracoLoader.setDecoderConfig({ type: 'wasm' });
-    sharedDracoLoader.setDecoderPath(DRACO_DECODER_BASE_URL);
+  sharedDracoLoader.setDecoderPath(getDracoDecoderBaseUrl());
     sharedDracoLoader.setCrossOrigin('anonymous');
     sharedDracoLoader.preload();
   }
@@ -53,9 +74,14 @@ const ProjectStripMedia = ({ media, onLoaded }: ProjectStripMediaProps) => {
       (loader) => {
         configureCrossOrigin(loader);
         loader.setDRACOLoader(getDracoLoader());
-        if (media.src.includes('/')) {
-          const base = media.src.split('/').slice(0, -1).join('/') + '/';
-          loader.setResourcePath(base);
+        if (typeof window !== 'undefined') {
+          try {
+            const resourceUrl = new URL(media.src, getAbsoluteBaseUrl());
+            const directory = resourceUrl.href.replace(/[^/]+$/, '');
+            loader.setResourcePath(directory);
+          } catch (error) {
+            console.warn('Unable to resolve resource path for media', media.src, error);
+          }
         }
       }
     );

@@ -251,6 +251,47 @@ main {
   margin-top: 0.5rem;
 }
 
+.project-strip__ancillary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.project-strip__awards {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.project-strip__awards-title {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.7);
+}
+
+
+.project-strip__award-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project-strip__award {
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: rgba(226, 232, 240, 0.9);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+
 .project-strip__description {
   color: rgba(226, 232, 240, 0.8);
   line-height: 1.65;

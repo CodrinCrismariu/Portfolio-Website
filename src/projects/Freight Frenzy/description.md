@@ -1,4 +1,4 @@
-Built for the 2021–2022 FTC Freight Frenzy season, this robot was designed to handle diverse game elements—cubes, balls, and ducks—while maximizing scoring efficiency. It combined a mecanum drivetrain with a telescopic intake/outtake system, a carousel spinner, and autonomous programs leveraging vision and odometry for reliable freight delivery.
+Built for the 2021–2022 [FTC](https://www.firstinspires.org/robotics/ftc) Freight Frenzy season, this robot was designed to handle diverse game elements—cubes, balls, and ducks—while maximizing scoring efficiency. It combined a mecanum drivetrain with a telescopic intake/outtake system, a carousel spinner, and autonomous programs leveraging vision and odometry for reliable freight delivery.
 
 ## Highlights
 

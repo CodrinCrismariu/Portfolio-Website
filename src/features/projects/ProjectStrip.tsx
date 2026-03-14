@@ -103,12 +103,12 @@ const ProjectStrip = ({ project, index }: { project: Project; index: number }) =
   const modelRotation: [number, number, number] = rotation
     ? rotation
     : rotationDeg
-    ? ((rotationDeg as [number, number, number]).map((degrees) => (degrees * Math.PI) / 180) as [
+      ? ((rotationDeg as [number, number, number]).map((degrees) => (degrees * Math.PI) / 180) as [
         number,
         number,
         number
       ])
-    : DEFAULT_MODEL_ROTATION;
+      : DEFAULT_MODEL_ROTATION;
 
   const cameraPosition = camera?.position ?? DEFAULT_CAMERA.position;
   const cameraTarget = camera?.target ?? DEFAULT_CAMERA.target;

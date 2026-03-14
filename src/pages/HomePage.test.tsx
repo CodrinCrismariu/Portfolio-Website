@@ -13,6 +13,7 @@ const mockProjects: Project[] = [
     description: '## Capabilities\n\n- Navigation\n- Telemetry',
     tags: ['Test'],
     links: [],
+    awards: [],
     media: {
       type: 'image',
       src: 'demo.png',

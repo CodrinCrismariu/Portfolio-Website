@@ -1,4 +1,4 @@
-A fully autonomous, 3D-printed quadruped built for ISEF to map and navigate its surroundings. Hardware includes a modified Xbox Kinect for RGB‑D mapping, joint encoders for proprioception, high‑torque servos, and an Intel NUC for onboard mapping and localization. I researched robot control theory, gait dynamics, and inverse kinematics, and designed all mechanical components in Fusion 360.
+A fully autonomous, 3D-printed quadruped built for [ISEF](https://www.societyforscience.org/isef/) to map and navigate its surroundings. Hardware includes a modified Xbox Kinect for RGB‑D mapping, joint encoders for proprioception, high‑torque servos, and an Intel NUC for onboard mapping and localization. I researched robot control theory, gait dynamics, and inverse kinematics, and designed all mechanical components in Fusion 360.
 
 ### Highlights
 

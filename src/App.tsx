@@ -1,18 +1,13 @@
 import { useMemo } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { loadProjects } from './utils/loadProjects';
 import HomePage from './pages/HomePage';
-import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
+  const location = useLocation();
   const projects = useMemo(() => loadProjects(), []);
 
-  return (
-    <Routes>
-      <Route path="/" element={<HomePage projects={projects} />} />
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
-  );
+  return <HomePage key={location.pathname} projects={projects} />;
 }
 
 export default App;

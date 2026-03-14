@@ -1,6 +1,4 @@
-## First Tech Challenge Centerstage Robot
-
-This is the robot I designed along my highschool robotics team Peppers for the FTC Centerstage season. Qualified for national semi-finals and Maryland Tech Invitational international competition. The robot picked up hexagonal game elements and placed them on a backboard as efficiently as possible.
+This is the robot I designed along my highschool robotics team Peppers for the [FTC](https://www.firstinspires.org/robotics/ftc) Centerstage season. Qualified for national semi-finals and Maryland Tech Invitational international competition. The robot picked up hexagonal game elements and placed them on a backboard as efficiently as possible.
 
 ## Highlights
 
