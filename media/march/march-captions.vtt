@@ -1,0 +1,148 @@
+WEBVTT
+
+00:00:00.240 --> 00:00:05.320
+Humanoid robots promise to move through the same constrained
+environments as humans, but
+
+00:00:05.320 --> 00:00:08.380
+sparse footholds remain a major challenge.
+
+00:00:08.380 --> 00:00:13.660
+On stepping stones, a small foot placement error can cause
+complete failure.
+
+00:00:13.660 --> 00:00:18.740
+In this work, we present MARCH, a model-assisted reinforcement
+learning framework for perceptive
+
+00:00:18.740 --> 00:00:22.080
+humanoid locomotion over sparse footholds.
+
+00:00:22.080 --> 00:00:26.180
+In our training, we take advantage of a teacher-student framework
+where the teacher has access to
+
+00:00:26.180 --> 00:00:32.980
+privileged information, which is then distilled into a student
+with noisy perception and proprioception.
+
+00:00:32.980 --> 00:00:37.940
+We first generate reference trajectories using simplified models,
+including planned footholds
+
+00:00:37.940 --> 00:00:42.420
+and a center-of-mass reference from a hybrid linear inverted
+pendulum model.
+
+00:00:42.420 --> 00:00:48.020
+The teacher policy is trained in simulation to track these
+references using control Lyapunov-inspired
+
+00:00:48.020 --> 00:00:49.020
+rewards.
+
+00:00:49.020 --> 00:00:55.140
+Then, this behavior is distilled into a student policy that only
+receives deployable observations,
+
+00:00:55.140 --> 00:00:58.420
+depth images, and proprioceptive history.
+
+00:00:58.420 --> 00:01:02.540
+A central challenge in this distillation step is that the
+teacher's behavior is not
+
+00:01:02.540 --> 00:01:04.460
+always unimodal.
+
+00:01:04.460 --> 00:01:08.980
+From the same robot state, multiple stepping choices may be
+valid.
+
+00:01:08.980 --> 00:01:14.060
+For example, the robot may be able to step with either foot, or
+choose between safe footholds
+
+00:01:14.060 --> 00:01:17.460
+on the left or right side of an obstacle.
+
+00:01:17.460 --> 00:01:22.300
+A standard unimodal student can average these valid actions and
+produce an invalid one,
+
+00:01:22.300 --> 00:01:25.380
+such as placing the foot between two stones.
+
+00:01:25.380 --> 00:01:29.980
+To address this, the student uses a mixture density network,
+which represents multiple
+
+00:01:29.980 --> 00:01:34.180
+possible action modes instead of collapsing them into a single
+mean.
+
+00:01:34.180 --> 00:01:39.380
+We compare the model-assisted distilled policy against a model-
+free distilled policy.
+
+00:01:39.380 --> 00:01:44.980
+Both policies attempt the same sparse foothold task, but their
+motion quality is different.
+
+00:01:44.980 --> 00:01:49.500
+The model-free policy tends to rely on more local corrections,
+while the model-assisted
+
+00:01:49.500 --> 00:01:55.380
+policy produces smoother transitions between supports and more
+consistent foot placement.
+
+00:01:55.380 --> 00:01:59.260
+This qualitative difference is also reflected in the metrics.
+
+00:01:59.260 --> 00:02:05.580
+Relative to the model-free baseline, our policy reduces mean
+joint torque by at least 12%,
+
+00:02:05.580 --> 00:02:12.140
+and reduces angular jerk by 39%, while maintaining similar
+results in traversing the path.
+
+00:02:12.140 --> 00:02:16.220
+One interesting behavior apparent from our trials is presented
+here.
+
+00:02:16.220 --> 00:02:20.940
+Before committing to the forward foothold, the robot first takes
+a backward step.
+
+00:02:20.940 --> 00:02:24.620
+That happens because the robot learned from its model that it
+does not have enough momentum
+
+00:02:24.620 --> 00:02:26.260
+to reach the next step.
+
+00:02:26.260 --> 00:02:30.740
+That's why it steps back to gain more momentum to be able to
+reach the next stepping stone.
+
+00:02:30.740 --> 00:02:33.980
+Finally, we return to the hardware result.
+
+00:02:33.980 --> 00:02:39.340
+The deployed student policy does not receive privileged terrain
+information, teacher observations,
+
+00:02:39.340 --> 00:02:42.060
+or model-generated references.
+
+00:02:42.060 --> 00:02:45.660
+It runs on board from depth and proprioceptive history.
+
+00:02:45.660 --> 00:02:51.460
+Overall, MARCH shows that model-guided reinforcement learning can
+improve perceptive humanoid locomotion
+
+00:02:51.460 --> 00:02:53.460
+while remaining transferable to hardware.
