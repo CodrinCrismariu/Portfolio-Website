@@ -1,195 +1,95 @@
-import { useCallback, useEffect, useRef } from 'react';
+/* eslint react/no-unknown-property: off -- React Three Fiber elements use Three.js properties. */
+import { useEffect, useMemo } from 'react';
 import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
-import { Mesh, MeshStandardMaterial, Color, Box3, Vector3 } from 'three';
+import { Mesh, MeshStandardMaterial, Box3, Vector3, type Object3D } from 'three';
 import type { ProjectMedia } from '../../types/projects';
 
-const FALLBACK_COLOR = new Color('#38bdf8');
-const ensureTrailingSlash = (value: string) => (value.endsWith('/') ? value : `${value}/`);
-const RAW_BASE_URL = import.meta.env.BASE_URL ?? '/';
-let cachedAbsoluteBaseUrl: string | null = null;
-
-const getAbsoluteBaseUrl = () => {
-  if (cachedAbsoluteBaseUrl) {
-    return cachedAbsoluteBaseUrl;
-  }
-
-  const normalized = ensureTrailingSlash(RAW_BASE_URL);
-
-  if (typeof window !== 'undefined') {
-    const resolved = new URL(normalized, window.location.origin).href;
-    cachedAbsoluteBaseUrl = ensureTrailingSlash(resolved);
-  } else {
-    cachedAbsoluteBaseUrl = ensureTrailingSlash(normalized);
-  }
-
-  return cachedAbsoluteBaseUrl;
-};
-
-const getDracoDecoderBaseUrl = () => `${getAbsoluteBaseUrl()}draco/`;
-const TARGET_MODEL_SIZE = 4;
-const UP_AXIS = 'y';
-
-const isResource = (resource: string, extension: string) => resource.toLowerCase().endsWith(extension);
-
-const configureCrossOrigin = (loader: { setCrossOrigin?: (value: string) => void }) => {
-  if ('setCrossOrigin' in loader && typeof loader.setCrossOrigin === 'function') {
-    loader.setCrossOrigin('anonymous');
-  }
-};
-
+type Props = { media: ProjectMedia; onLoaded?: () => void };
 let sharedDracoLoader: DRACOLoader | null = null;
-
 const getDracoLoader = () => {
-  if (!sharedDracoLoader) {
-    sharedDracoLoader = new DRACOLoader();
-    sharedDracoLoader.setDecoderConfig({ type: 'wasm' });
-  sharedDracoLoader.setDecoderPath(getDracoDecoderBaseUrl());
-    sharedDracoLoader.setCrossOrigin('anonymous');
-    sharedDracoLoader.preload();
-  }
-  return sharedDracoLoader;
+	if (!sharedDracoLoader) {
+		sharedDracoLoader = new DRACOLoader();
+		sharedDracoLoader.setDecoderConfig({ type: 'wasm' });
+		sharedDracoLoader.setDecoderPath(
+			new URL(`${import.meta.env.BASE_URL}draco/`, window.location.origin).href,
+		);
+		sharedDracoLoader.setCrossOrigin('anonymous');
+	}
+	return sharedDracoLoader;
 };
-
-type ProjectStripMediaProps = {
-  media: ProjectMedia;
-  onLoaded?: () => void;
+// Normalize before mounting so the camera sees the final bounds on its first frame.
+const normalizeModel = (source: Object3D) => {
+	const object = source.clone(true);
+	object.updateMatrixWorld(true);
+	const box = new Box3().setFromObject(object);
+	const size = box.getSize(new Vector3());
+	const maxAxis = Math.max(size.x, size.y, size.z);
+	if (maxAxis > 0) object.scale.multiplyScalar(4 / maxAxis);
+	object.rotation.x = -Math.PI / 2;
+	object.updateMatrixWorld(true);
+	box.setFromObject(object);
+	object.position.sub(box.getCenter(new Vector3()));
+	object.updateMatrixWorld(true);
+	object.traverse((child) => {
+		if (child instanceof Mesh) {
+			child.castShadow = true;
+			child.receiveShadow = true;
+			if (!child.material) child.material = new MeshStandardMaterial({ color: '#c6f276' });
+		}
+	});
+	return object;
 };
-
-const ProjectStripMedia = ({ media, onLoaded }: ProjectStripMediaProps) => {
-  const notifiedRef = useRef(false);
-  const notifyReady = useCallback(() => {
-    if (notifiedRef.current) return;
-    notifiedRef.current = true;
-    onLoaded?.();
-  }, [onLoaded]);
-
-  if (media.type === 'gltf' || media.type === 'glb') {
-    const gltf = useLoader(
-      GLTFLoader,
-      media.src,
-      (loader) => {
-        configureCrossOrigin(loader);
-        loader.setDRACOLoader(getDracoLoader());
-        if (typeof window !== 'undefined') {
-          try {
-            const resourceUrl = new URL(media.src, getAbsoluteBaseUrl());
-            const directory = resourceUrl.href.replace(/[^/]+$/, '');
-            loader.setResourcePath(directory);
-          } catch (error) {
-            console.warn('Unable to resolve resource path for media', media.src, error);
-          }
-        }
-      }
-    );
-
-    useEffect(() => {
-      if (!gltf.scene.userData.__normalized) {
-        gltf.scene.updateMatrixWorld(true);
-
-        const box = new Box3().setFromObject(gltf.scene);
-        const size = box.getSize(new Vector3());
-        const maxAxis = Math.max(size.x, size.y, size.z);
-        if (maxAxis > 0) {
-          const scale = TARGET_MODEL_SIZE / maxAxis;
-          gltf.scene.scale.multiplyScalar(scale);
-        }
-
-        if (UP_AXIS === 'y') {
-          gltf.scene.rotation.x = -Math.PI / 2;
-        }
-
-        gltf.scene.updateMatrixWorld(true);
-        box.setFromObject(gltf.scene);
-        const center = box.getCenter(new Vector3());
-        gltf.scene.position.sub(center);
-        gltf.scene.userData.__normalized = true;
-      }
-
-      gltf.scene.traverse((child) => {
-        if ('castShadow' in child && 'receiveShadow' in child) {
-          child.castShadow = true;
-          child.receiveShadow = true;
-        }
-      });
-      notifyReady();
-    }, [gltf.scene, notifyReady]);
-
-    return <primitive object={gltf.scene} />;
-  }
-
-  if (media.type === 'obj') {
-  let materials: MTLLoader.MaterialCreator | undefined;
-
-    if (media.resources?.some((resource) => isResource(resource, '.mtl'))) {
-      const materialPath = media.resources.find((resource) => isResource(resource, '.mtl'))!;
-      materials = useLoader(MTLLoader, materialPath, (loader) => {
-        configureCrossOrigin(loader);
-      });
-      materials?.preload();
-    }
-
-    const object = useLoader(
-      OBJLoader,
-      media.src,
-      (loader) => {
-        configureCrossOrigin(loader);
-        if (materials) loader.setMaterials(materials);
-      }
-    );
-
-    useEffect(() => {
-      if (!object.userData.__normalized) {
-        object.updateMatrixWorld(true);
-
-        const box = new Box3().setFromObject(object);
-        const size = box.getSize(new Vector3());
-        const maxAxis = Math.max(size.x, size.y, size.z);
-        if (maxAxis > 0) {
-          const scale = TARGET_MODEL_SIZE / maxAxis;
-          object.scale.multiplyScalar(scale);
-        }
-
-        if (UP_AXIS === 'y') {
-          object.rotation.x = -Math.PI / 2;
-        }
-
-        object.updateMatrixWorld(true);
-        box.setFromObject(object);
-        const center = box.getCenter(new Vector3());
-        object.position.sub(center);
-        object.userData.__normalized = true;
-      }
-
-      object.traverse((child) => {
-        if ('isMesh' in child && child.isMesh) {
-          const mesh = child as Mesh;
-          mesh.castShadow = true;
-          mesh.receiveShadow = true;
-          if (!mesh.material) {
-            mesh.material = new MeshStandardMaterial({ color: FALLBACK_COLOR });
-          }
-        }
-      });
-      notifyReady();
-    }, [object, notifyReady]);
-
-    return <primitive object={object} />;
-  }
-
-  useEffect(() => {
-    notifyReady();
-  }, [notifyReady]);
-
-  return (
-    <mesh>
-      <boxGeometry args={[1.6, 0.9, 0.1]} />
-      <meshStandardMaterial color={FALLBACK_COLOR} />
-    </mesh>
-  );
+const GltfMedia = ({ media, onLoaded }: Props) => {
+	const gltf = useLoader(GLTFLoader, media.src, (loader) => {
+		loader.setCrossOrigin('anonymous');
+		loader.setDRACOLoader(getDracoLoader());
+		const url = new URL(media.src, window.location.origin);
+		loader.setResourcePath(url.href.replace(/[^/]+$/, ''));
+	});
+	const object = useMemo(() => normalizeModel(gltf.scene), [gltf.scene]);
+	useEffect(() => {
+		onLoaded?.();
+	}, [object, onLoaded]);
+	return <primitive object={object} />;
 };
-
+const ObjMedia = ({
+	media,
+	onLoaded,
+	materials,
+}: Props & { materials?: MTLLoader.MaterialCreator }) => {
+	const source = useLoader(OBJLoader, media.src, (loader) => {
+		loader.setCrossOrigin('anonymous');
+		if (materials) loader.setMaterials(materials);
+	});
+	const object = useMemo(() => normalizeModel(source), [source]);
+	useEffect(() => {
+		onLoaded?.();
+	}, [object, onLoaded]);
+	return <primitive object={object} />;
+};
+const ObjWithMaterials = ({ materialPath, ...props }: Props & { materialPath: string }) => {
+	const materials = useLoader(MTLLoader, materialPath, (loader) =>
+		loader.setCrossOrigin('anonymous'),
+	);
+	useMemo(() => materials.preload(), [materials]);
+	return <ObjMedia {...props} materials={materials} />;
+};
+const ProjectStripMedia = (props: Props) => {
+	if (props.media.type === 'gltf' || props.media.type === 'glb') return <GltfMedia {...props} />;
+	if (props.media.type === 'obj') {
+		const materialPath = props.media.resources?.find((resource) =>
+			resource.toLowerCase().endsWith('.mtl'),
+		);
+		return materialPath ? (
+			<ObjWithMaterials {...props} materialPath={materialPath} />
+		) : (
+			<ObjMedia {...props} />
+		);
+	}
+	return null;
+};
 export default ProjectStripMedia;

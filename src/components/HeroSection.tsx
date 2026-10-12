@@ -1,20 +1,45 @@
+import { profile, assetUrl } from '../utils/portfolioData';
 const HeroSection = () => (
-  <section className="hero">
-    <div className="hero__content">
-      <h1 className="section-heading">Codrin's Portfolio</h1>
-      <p className="hero__body">
-        Hey, I'm a Mechanical Engineering and Comp Sci student at Tufts University with a passion of engineering, coding, and robotics. From quadrupeds to solar cars to engineering education research these are the projects that I worked on over the years.
-      </p>
-      <div className="hero__actions">
-        <a className="button-link" href="mailto:codrin.crismariu@tufts.edu">
-          Let&apos;s collaborate
-        </a>
-        <a className="button-link" href="https://github.com/CodrinCrismariu" target="_blank" rel="noreferrer">
-          GitHub
-        </a>
-      </div>
-    </div>
-  </section>
+	<section className="hero" aria-labelledby="hero-title">
+		<div className="hero__content">
+			<p className="eyebrow">{profile.headline}</p>
+			<h1 id="hero-title">{profile.name}</h1>
+			<p className="hero__body">{profile.introduction}</p>
+			<div className="hero__actions">
+				<a
+					className="button-link button-link--primary"
+					href={assetUrl(profile.resumePath)}
+					target="_blank"
+					rel="noreferrer"
+				>
+					Résumé <span aria-hidden="true">↗</span>
+				</a>
+				<a className="text-link" href={`mailto:${profile.email}`}>
+					Email <span aria-hidden="true">↗</span>
+				</a>
+				<a className="text-link" href={profile.githubUrl} target="_blank" rel="noreferrer">
+					GitHub <span aria-hidden="true">↗</span>
+				</a>
+			</div>
+		</div>
+		<div className="hero__context">
+			<a href="#experience-sparc">
+				<span className="eyebrow">Current research</span>
+				<strong>SPARC Lab</strong>
+				<span>Tufts University · 2026–present</span>
+				<span className="context-arrow" aria-hidden="true">
+					↗
+				</span>
+			</a>
+			<a href="#experience-magna">
+				<span className="eyebrow">Industry experience</span>
+				<strong>Magna International</strong>
+				<span>Advanced Robotics R&D · Summer 2026</span>
+				<span className="context-arrow" aria-hidden="true">
+					↗
+				</span>
+			</a>
+		</div>
+	</section>
 );
-
 export default HeroSection;

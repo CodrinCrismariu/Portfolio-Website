@@ -1,0 +1,13 @@
+{
+	"id": "tactile-representations",
+	"title": "General-Purpose Tactile Representations",
+	"shortTitle": "Tactile representation learning",
+	"summary": "Developing transferable tactile latent representations from images and video.",
+	"kind": "research",
+	"presentation": "current",
+	"status": "ongoing",
+	"affiliation": "SPARC Lab, Tufts University",
+	"tags": ["Tactile perception", "Representation learning", "Robotic manipulation"],
+	"links": [],
+	"order": -90
+}

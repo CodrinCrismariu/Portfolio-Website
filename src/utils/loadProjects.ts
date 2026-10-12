@@ -7,106 +7,135 @@ type GlobMarkdown = Record<string, { default: string } | string>;
 type GlobAsset = Record<string, string>;
 
 type MediaResources = {
-  src: string;
-  resources: string[];
-  poster?: string | null;
+	src: string;
+	resources: string[];
+	poster?: string | null;
 };
 
 const manifestModules: GlobManifest = import.meta.glob('../projects/**/project.json', {
-  eager: true
+	eager: true,
 });
 
 const descriptionModules: GlobMarkdown = import.meta.glob('../projects/**/description.md', {
-  eager: true,
-  query: '?raw',
-  import: 'default'
+	eager: true,
+	query: '?raw',
+	import: 'default',
 });
 
-const assetModules: GlobAsset = import.meta.glob('../projects/**/*.{gltf,glb,obj,mtl,bin,jpg,jpeg,png,webp,svg,gif,pdf}', {
-  eager: true,
-  query: '?url',
-  import: 'default'
-});
+const assetModules: GlobAsset = import.meta.glob(
+	'../projects/**/*.{gltf,glb,obj,mtl,bin,jpg,jpeg,png,webp,svg,gif,pdf}',
+	{
+		eager: true,
+		query: '?url',
+		import: 'default',
+	},
+);
 
 const normalizePath = (path: string) => path.replace('../projects/', './');
 
 const createAssetResolver = (folder: string) => (relativePath?: string | null) => {
-  const root = folder.endsWith('/') ? folder : `${folder}/`;
-  if (!relativePath) return undefined;
-  if (/^https?:\/\//.test(relativePath)) {
-    return relativePath;
-  }
-  if (relativePath.startsWith('/')) {
-    const base = import.meta.env.BASE_URL ?? '/';
-    const trimmedBase = base.endsWith('/') ? base.slice(0, -1) : base;
-    return `${trimmedBase}${relativePath}`;
-  }
-  const normalized = normalizePath(`${root}${relativePath.replace('./', '')}`);
-  // normalized starts with ./, slice(2) to remove it. path in glob is ../projects/...
-  const asset = assetModules[`../projects/${normalized.slice(2)}`];
+	const root = folder.endsWith('/') ? folder : `${folder}/`;
+	if (!relativePath) return undefined;
+	if (/^https?:\/\//.test(relativePath)) {
+		return relativePath;
+	}
+	if (relativePath.startsWith('/')) {
+		const base = import.meta.env.BASE_URL ?? '/';
+		const trimmedBase = base.endsWith('/') ? base.slice(0, -1) : base;
+		return `${trimmedBase}${relativePath}`;
+	}
+	const normalized = normalizePath(`${root}${relativePath.replace('./', '')}`);
+	// normalized starts with ./, slice(2) to remove it. path in glob is ../projects/...
+	const asset = assetModules[`../projects/${normalized.slice(2)}`];
 
-  if (!asset) {
-    console.warn(`Asset not found for ${relativePath} in ${folder}`);
-    return relativePath || undefined;
-  }
+	if (!asset) {
+		console.warn(`Asset not found for ${relativePath} in ${folder}`);
+		return relativePath || undefined;
+	}
 
-  return asset;
+	return asset;
 };
 
 const resolveMedia = (media: ProjectMedia, folder: string): MediaResources => {
-  const resolveAsset = createAssetResolver(folder);
+	const resolveAsset = createAssetResolver(folder);
 
-  const srcAsset = resolveAsset(media.src);
-  const resourceAssets = (media.resources || []).map((resource) => resolveAsset(resource) ?? resource);
-  const posterAsset = resolveAsset(media.poster ?? undefined);
+	const srcAsset = resolveAsset(media.src);
+	const resourceAssets = (media.resources || []).map(
+		(resource) => resolveAsset(resource) ?? resource,
+	);
+	const posterAsset = resolveAsset(media.poster ?? undefined);
 
-  if (!srcAsset) {
-    throw new Error(`Media source missing for project in ${folder}`);
-  }
+	if (!srcAsset) {
+		throw new Error(`Media source missing for project in ${folder}`);
+	}
 
-  return {
-    src: srcAsset,
-    resources: resourceAssets.filter(Boolean) as string[],
-    poster: posterAsset ?? undefined
-  };
+	return {
+		src: srcAsset,
+		resources: resourceAssets.filter(Boolean) as string[],
+		poster: posterAsset ?? undefined,
+	};
 };
 
 export const loadProjects = (): Project[] => {
-  const projects: Project[] = [];
+	const projects: Project[] = [];
 
-  Object.entries(manifestModules).forEach(([path, module]) => {
-    const manifest = module.default;
-    const folder = path.replace('/project.json', '');
-    const relativeFolder = folder.replace('../projects/', './');
-    const descriptionModule = descriptionModules[path.replace('project.json', 'description.md')];
-    const description = typeof descriptionModule === 'string' ? descriptionModule : descriptionModule?.default;
+	Object.entries(manifestModules).forEach(([path, module]) => {
+		const manifest = module.default;
+		const folder = path.replace('/project.json', '');
+		const relativeFolder = folder.replace('../projects/', './');
+		const descriptionModule =
+			descriptionModules[path.replace('project.json', 'description.md')];
+		const description =
+			typeof descriptionModule === 'string' ? descriptionModule : descriptionModule?.default;
 
-    if (!description) {
-      console.warn(`Description missing for ${manifest.id}`);
-    }
+		if (!description) {
+			console.warn(`Description missing for ${manifest.id}`);
+		}
 
-    const media = resolveMedia(manifest.media, relativeFolder);
-    const resolveAsset = createAssetResolver(relativeFolder);
+		const media = manifest.media ? resolveMedia(manifest.media, relativeFolder) : undefined;
+		const resolveAsset = createAssetResolver(relativeFolder);
 
-    const resolvedLinks = (manifest.links ?? []).map((link) => ({
-      ...link,
-      url: resolveAsset(link.url) ?? link.url
-    }));
+		const resolvedLinks = (manifest.links ?? []).map((link) => ({
+			...link,
+			url: resolveAsset(link.url) ?? link.url,
+		}));
 
-    projects.push({
-      ...manifest,
-      status: manifest.status ?? 'past',
-      description: description ?? '',
-      awards: manifest.awards ?? [],
-      links: resolvedLinks,
-      media: {
-        ...manifest.media,
-        src: media.src,
-        resources: media.resources,
-        poster: media.poster ?? manifest.media.poster ?? null
-      }
-    });
-  });
+		projects.push({
+			...manifest,
+			status: manifest.status ?? 'past',
+			kind: manifest.kind ?? 'engineering',
+			presentation: manifest.presentation ?? 'archive',
+			description: description ?? '',
+			awards: manifest.awards ?? [],
+			links: resolvedLinks,
+			media:
+				media && manifest.media
+					? {
+							...manifest.media,
+							src: media.src,
+							resources: media.resources,
+							poster: media.poster ?? manifest.media.poster ?? null,
+						}
+					: undefined,
+			research: manifest.research
+				? {
+						...manifest.research,
+						video: manifest.research.video
+							? {
+									...manifest.research.video,
+									src: resolveAsset(manifest.research.video.src)!,
+									poster: resolveAsset(manifest.research.video.poster)!,
+									captions: resolveAsset(manifest.research.video.captions)!,
+								}
+							: undefined,
+						figures: manifest.research.figures?.map((figure) => ({
+							...figure,
+							src: resolveAsset(figure.src) ?? figure.src,
+						})),
+					}
+				: undefined,
+		});
+	});
 
-  return projects.sort((a, b) => a.order - b.order);
+	return projects.sort((a, b) => a.order - b.order);
 };

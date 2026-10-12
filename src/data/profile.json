@@ -1,0 +1,37 @@
+{
+	"name": "Codrin Crismariu",
+	"headline": "Robotics Research & Engineering",
+	"introduction": "I work on learned control and perception for humanoid robots, from simulation to physical hardware. Mechanical Engineering student at Tufts University and research intern in the SPARC Lab.",
+	"email": "codrin.crismariu@tufts.edu",
+	"resumePath": "/Resume_2.pdf",
+	"githubUrl": "https://github.com/CodrinCrismariu",
+	"linkedinUrl": "https://www.linkedin.com/in/codrin-crismariu/",
+	"education": {
+		"institution": "Tufts University",
+		"degree": "Mechanical Engineering",
+		"graduationYear": 2028,
+		"gpa": "3.97 / 4.00"
+	},
+	"skills": [
+		{ "label": "Programming & writing", "items": ["Python", "C++", "LaTeX"] },
+		{
+			"label": "Simulation & learning",
+			"items": ["MuJoCo", "mjlab", "Isaac Lab", "rsl-rl", "PPO", "Unity ML-Agents"]
+		},
+		{
+			"label": "Control & perception",
+			"items": [
+				"ROS",
+				"RGB-D SLAM",
+				"inverse kinematics",
+				"PID control",
+				"Intel RealSense",
+				"OpenMV"
+			]
+		},
+		{
+			"label": "Mechanical design",
+			"items": ["Fusion 360", "finite element analysis", "CNC machining", "3D printing"]
+		}
+	]
+}

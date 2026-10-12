@@ -1,0 +1,112 @@
+{
+	"id": "march",
+	"title": "MARCH: Model-Assisted Reinforcement Learning for the Perceptive Control of Humanoids over Sparse Footholds",
+	"shortTitle": "MARCH",
+	"summary": "Vision-guided humanoid locomotion over sparse footholds, combining model-based foothold planning with learned control.",
+	"kind": "research",
+	"presentation": "featured",
+	"status": "past",
+	"date": "2026-06-09",
+	"order": -100,
+	"role": "Lead developer & first author",
+	"affiliation": "SPARC Lab, Tufts University",
+	"publicationIds": ["march-corl-2026"],
+	"tags": ["Humanoid locomotion", "Reinforcement learning", "Sim-to-real"],
+	"links": [],
+	"media": {
+		"type": "image",
+		"src": "./hardware-figure.png",
+		"poster": "./hardware-figure.png",
+		"alt": "Unitree G1 traversing laterally constrained stepping stones; accompanying depth observations from the experiment.",
+		"caption": "Physical Unitree G1 experiment and corresponding depth observations. Figure 1 from the MARCH paper.",
+		"sourceUrl": "https://arxiv.org/html/2606.10288v1#S0.F1",
+		"width": 3929,
+		"height": 1897
+	},
+	"research": {
+		"video": {
+			"src": "/media/march/march-demo.mp4",
+			"poster": "./video-poster.jpg",
+			"captions": "/media/march/march-captions.vtt",
+			"caption": "Full MARCH demonstration: method overview, simulation comparisons, and physical Unitree G1 experiments."
+		},
+		"methods": [
+			{
+				"label": "Model-assisted planning",
+				"detail": "Generate safe reference trajectories with a model-based foothold planner to guide learned locomotion control."
+			},
+			{
+				"label": "Teacher training",
+				"detail": "PPO with domain randomization in a MuJoCo/mjlab pipeline running 4,096 parallel simulation environments."
+			},
+			{
+				"label": "Perceptive student policy",
+				"detail": "Distill the teacher into a CNN–transformer–mixture-density-network policy using depth images and proprioceptive observations."
+			}
+		],
+		"results": [
+			{
+				"value": "66.7%",
+				"label": "Simulation success",
+				"context": "Across 1,024 randomized simulation trials.",
+				"environment": "simulation"
+			},
+			{
+				"value": "½",
+				"label": "Teacher-training episodes",
+				"context": "10,000 episodes versus 20,000 for the model-free baseline.",
+				"environment": "simulation"
+			},
+			{
+				"value": "≥12%",
+				"label": "Less joint torque",
+				"context": "Mean absolute joint torque versus the model-free baseline.",
+				"environment": "simulation"
+			},
+			{
+				"value": "39%",
+				"label": "Less angular jerk",
+				"context": "Mean absolute angular jerk versus the model-free baseline.",
+				"environment": "simulation"
+			}
+		],
+		"evaluationNote": "Torque and jerk comparisons use 2,048 simulated student-policy rollouts after 500 distillation iterations. These are simulation results, not physical-robot success rates.",
+		"hardware": [
+			{
+				"value": "50 Hz",
+				"label": "Onboard policy execution",
+				"detail": "Unitree G1 · Jetson Orin NX"
+			},
+			{
+				"value": "4",
+				"label": "Stepping stones traversed",
+				"detail": "Forward and lateral foothold constraints"
+			},
+			{
+				"value": "Depth + proprioception",
+				"label": "Policy observations",
+				"detail": "Intel RealSense depth sensing and robot state"
+			}
+		],
+		"figures": [
+			{
+				"src": "./hardware-figure.png",
+				"alt": "Unitree G1 traversing laterally constrained stepping stones, alongside the robot’s depth observations.",
+				"caption": "Physical robot and depth observations · Figure 1 from the MARCH paper.",
+				"sourceUrl": "https://arxiv.org/html/2606.10288v1#S0.F1"
+			},
+			{
+				"src": "./framework.png",
+				"alt": "MARCH framework: model-based reference generation, privileged PPO teacher training, and vision-based student distillation.",
+				"caption": "Framework overview · Figure 2 from the MARCH paper.",
+				"sourceUrl": "https://arxiv.org/html/2606.10288v1#S4.F2"
+			},
+			{
+				"src": "./simulation-results.png",
+				"alt": "Simulation comparison of distance traveled, joint torque, and angular jerk for model-assisted and model-free control.",
+				"caption": "Simulation baseline comparison · Figure 4 from the MARCH paper.",
+				"sourceUrl": "https://arxiv.org/html/2606.10288v1#S7.F4"
+			}
+		]
+	}
+}

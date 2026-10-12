@@ -1,0 +1,14 @@
+[
+	{
+		"id": "march-corl-2026",
+		"projectId": "march",
+		"authors": ["Codrin Crismariu", "Ryan K. Cosner"],
+		"venue": "Conference on Robot Learning",
+		"venueAbbreviation": "CoRL",
+		"year": 2026,
+		"status": "accepted",
+		"paperUrl": "https://arxiv.org/abs/2606.10288",
+		"pdfUrl": "https://arxiv.org/pdf/2606.10288",
+		"demonstrationUrl": "#march-video"
+	}
+]

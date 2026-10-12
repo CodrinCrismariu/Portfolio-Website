@@ -1,64 +1,44 @@
-import { useMemo } from 'react';
 import type { Project } from '../../types/projects';
-
 const ProjectStripMetadata = ({ project }: { project: Project }) => {
-  const formattedDate = useMemo(() => {
-    if (!project.date) return null;
-    const parsed = Date.parse(project.date);
-    if (Number.isNaN(parsed)) return null;
-    return new Intl.DateTimeFormat(undefined, {
-      year: 'numeric',
-      month: 'short'
-    }).format(parsed);
-  }, [project.date]);
-
-  return (
-    <header className="project-strip__header">
-      <div className="project-strip__eyebrow">
-        {project.tags.join(' · ')}
-        {formattedDate ? ` · ${formattedDate}` : ''}
-      </div>
-      <h3 className="project-strip__title">{project.title}</h3>
-      {project.summary ? <p className="project-strip__summary">{project.summary}</p> : null}
-      {(project.links.length > 0 || project.awards.length > 0) && (
-        <div className="project-strip__ancillary">
-          {project.links.length > 0 && (
-            <div className="project-strip__links">
-              {project.links.map((link) => (
-                <a
-                  key={link.url}
-                  className="button-link"
-                  href={(() => {
-                    if (link.url.startsWith('http')) return link.url;
-                    const base = import.meta.env.BASE_URL ?? '/';
-                    const trimmedBase = base.endsWith('/') && base !== '/' ? base.slice(0, -1) : base === '/' ? '' : base;
-                    if (trimmedBase && link.url.startsWith(trimmedBase)) return link.url;
-                    return `${trimmedBase}${link.url.startsWith('/') ? '' : '/'}${link.url}`;
-                  })()}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          )}
-          {project.awards.length > 0 && (
-            <div className="project-strip__awards">
-              <h4 className="project-strip__awards-title">Awards</h4>
-              <ul className="project-strip__award-list">
-                {project.awards.map((award) => (
-                  <li key={award} className="project-strip__award">
-                    {award}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      )}
-    </header>
-  );
+	const parsed = project.date ? Date.parse(project.date) : NaN;
+	const formattedDate = Number.isNaN(parsed)
+		? null
+		: new Intl.DateTimeFormat('en-US', {
+				year: 'numeric',
+				month: 'short',
+				timeZone: 'UTC',
+			}).format(parsed);
+	return (
+		<header className="project-strip__header">
+			<div className="project-strip__eyebrow">
+				{project.status === 'ongoing' ? (
+					<span className="project-strip__status">
+						<span className="status-dot" />
+						In progress
+					</span>
+				) : (
+					<span>{formattedDate ?? 'Project'}</span>
+				)}
+				<span>{project.tags[0]}</span>
+			</div>
+			<h3 className="project-strip__title">{project.title}</h3>
+			<div className="tag-list">
+				{project.tags.map((tag) => (
+					<span className="tag" key={tag}>
+						{tag}
+					</span>
+				))}
+			</div>
+			{project.awards.length > 0 ? (
+				<ul className="project-strip__award-list">
+					{project.awards.map((award) => (
+						<li key={award} className="project-strip__award">
+							<span aria-hidden="true">✳</span> {award}
+						</li>
+					))}
+				</ul>
+			) : null}
+		</header>
+	);
 };
-
 export default ProjectStripMetadata;

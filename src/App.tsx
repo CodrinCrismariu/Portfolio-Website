@@ -4,10 +4,10 @@ import { loadProjects } from './utils/loadProjects';
 import HomePage from './pages/HomePage';
 
 function App() {
-  const location = useLocation();
-  const projects = useMemo(() => loadProjects(), []);
+	const location = useLocation();
+	const projects = useMemo(() => loadProjects(), []);
 
-  return <HomePage key={location.pathname} projects={projects} />;
+	return <HomePage key={location.pathname} projects={projects} />;
 }
 
 export default App;

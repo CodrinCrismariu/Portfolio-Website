@@ -1,0 +1,32 @@
+[
+	{
+		"id": "sparc",
+		"kind": "research",
+		"organization": "SPARC Lab · Tufts University",
+		"department": "Department of Mechanical Engineering",
+		"role": "Research Intern",
+		"location": "Medford, Massachusetts",
+		"period": "February 2026 – Present",
+		"summary": "Led end-to-end development of MARCH and first-authored the resulting CoRL 2026 paper.",
+		"highlights": [
+			"Developed reinforcement learning and sim-to-real pipelines for humanoid locomotion; deployed learned control policies on physical humanoid hardware.",
+			"Currently researching transferable tactile representations for robotic manipulation."
+		],
+		"relatedProjectIds": ["march", "tactile-representations"]
+	},
+	{
+		"id": "magna",
+		"kind": "industry",
+		"organization": "Magna International",
+		"role": "Advanced Robotics R&D Intern",
+		"location": "Troy, Michigan",
+		"period": "Summer 2026",
+		"summary": "Evaluated humanoid robots for payload manipulation and material transport in factory environments.",
+		"highlights": [
+			"Investigated technical requirements and practical deployment opportunities for industrial humanoid robotics.",
+			"Developed a pipeline for fine-tuning and deploying vision-language-action models on the Unitree G1.",
+			"Combined VLA policies with diffusion-steering reinforcement learning to develop a self-improving agent intended for industrial deployment."
+		],
+		"relatedProjectIds": []
+	}
+]
